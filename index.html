@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login dan Beranda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container, .welcome-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: none;
+        }
+
+        .login-container.active, .welcome-container.active {
+            display: block;
+        }
+
+        h2, h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        p {
+            color: #333;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Halaman Login -->
+    <div class="login-container active" id="loginContainer">
+        <h2>Login</h2>
+      <p>isi sesuai imajinasimu</p>  
+        <form id="loginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="error-message"></p>
+    </div>
+
+    <!-- Halaman Beranda -->
+        <div class="welcome-container" id="welcomeContainer">
+            <h1>Selamat Datang</h1>
+            <p>misalkan kamu tiba2 stres apa yg akan kamu lakukan?</p>
+            <p>TIDAK ITU BUKAN SOLUSINYA</p>
+            <P>ada bnayak cara untuk menghilangkan stresmu itu</P>
+            <p>salah satunya pergi keliling bersamaku belanja menghabiskan uangmu</p>
+            <h3></h3>
+        </div>
+    <script>
+        // Daftar user yang valid
+        const users = [
+            { username: 'igo', password: '12345678' },
+            { username: 'a', password: 'p' }
+        ];
+
+        // Ambil elemen yang dibutuhkan
+        const loginContainer = document.getElementById('loginContainer');
+        const welcomeContainer = document.getElementById('welcomeContainer');
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('error-message');
+
+        // Aksi saat form login dikirim
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Cek username dan password
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                // Jika login berhasil, sembunyikan halaman login dan tampilkan halaman beranda
+                loginContainer.classList.remove('active');
+                welcomeContainer.classList.add('active');
+            } else {
+                // Jika login gagal, tampilkan pesan kesalahan
+                errorMessage.textContent = 'pintar dikit lah masa masukin pw aja salah';
+            }
+        });
+    </script>
+
+</body>
+</html>
